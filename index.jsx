@@ -2,8 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 
 // ============================================================================
 // AI PERIODIC TABLE - Complete Single-File Application
-// Attribution: Based on original work by IBM (https://www.youtube.com/@IBMTechnology)
-// Enhanced by PlainID
+// Made by the SE Team for Walkthrough Purposes Only
 // ============================================================================
 
 // Element Data - All 17 elements with Simple and Technical content
@@ -1003,17 +1002,6 @@ export default function App() {
           <p className={`text-sm sm:text-base md:text-lg ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
             Navigate the elements of AI systems. Click any element to explore.
           </p>
-          <p className={`text-xs sm:text-sm mt-2 ${isDark ? 'text-gray-600' : 'text-gray-400'}`}>
-            Based on original work by{' '}
-            <a 
-              href="https://www.youtube.com/@IBMTechnology" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className={`underline ${isDark ? 'hover:text-gray-400' : 'hover:text-gray-600'}`}
-            >
-              IBM
-            </a>
-          </p>
         </div>
 
         {/* Controls Row */}
@@ -1137,26 +1125,7 @@ export default function App() {
 
         {/* Footer Attribution */}
         <footer className={`mt-8 pt-6 border-t text-center text-xs sm:text-sm ${isDark ? 'border-gray-800 text-gray-600' : 'border-gray-200 text-gray-400'}`}>
-          <p>
-            Based on the AI Periodic Table by{' '}
-            <a 
-              href="https://www.youtube.com/@IBMTechnology" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="underline hover:opacity-80"
-            >
-              IBM Technology
-            </a>
-            {' '}• Enhanced by{' '}
-            <a 
-              href="https://plainid.com" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="underline hover:opacity-80"
-            >
-              PlainID
-            </a>
-          </p>
+          <p>Made by the SE Team for Walkthrough Purposes Only</p>
         </footer>
       </main>
 
