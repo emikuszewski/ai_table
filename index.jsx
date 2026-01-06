@@ -625,7 +625,7 @@ const ElementCard = ({ element, onClick, isSelected, isDark, isPipelineActive, h
       </span>
       {element.authRelevant && (
         <div className="absolute top-1.5 right-1.5 sm:top-2 sm:right-2" title="Authorization touchpoint">
-          <div className="w-2 h-2 bg-amber-500 rounded-full animate-pulse" />
+          <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
         </div>
       )}
     </button>
@@ -928,7 +928,7 @@ const Legend = ({ isDark }) => (
       </div>
     ))}
     <div className="flex items-center gap-1.5 sm:gap-2">
-      <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-amber-500 animate-pulse" />
+      <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-emerald-500 animate-pulse" />
       <span className={isDark ? 'text-gray-400' : 'text-gray-500'}>Auth touchpoint</span>
     </div>
   </div>
