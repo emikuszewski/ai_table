@@ -1144,7 +1144,7 @@
             {/* Main Content */}
             <div className={`grid gap-6 lg:gap-8 ${selectedElement ? 'lg:grid-cols-2' : ''}`}>
               {/* Table */}
-              <div ref={tableRef} className="overflow-x-auto">
+              <div ref={tableRef} className="overflow-x-auto p-2 -m-2">
                 {/* Grid Rows */}
                 <div className="space-y-2 sm:space-y-3 min-w-[400px]">
                   {grid.map(({ row, elements: rowElements }) => (
