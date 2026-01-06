@@ -108,7 +108,7 @@ const elements = [
       { name: 'Anthropic Tool Use', url: 'https://docs.anthropic.com/en/docs/build-with-claude/tool-use' },
       { name: 'LangChain Tools', url: 'https://python.langchain.com/docs/modules/tools/' }
     ],
-    relatedElements: ['Ag', 'Mc', 'Fw'],
+    relatedElements: ['Ag', 'Pt', 'Fw'],
     authConsideration: {
       title: 'Authorization Touchpoint',
       description: 'Function calls represent real-world actions with security implications. Which functions can a user invoke? What data can they access or modify? Policy-based controls ensure AI only executes authorized operations.',
@@ -251,7 +251,7 @@ const elements = [
       { name: 'AutoGPT', url: 'https://github.com/Significant-Gravitas/AutoGPT' },
       { name: 'CrewAI', url: 'https://www.crewai.com/' }
     ],
-    relatedElements: ['Fc', 'Mc', 'Ma', 'Gr'],
+    relatedElements: ['Fc', 'Pt', 'Ma', 'Gr'],
     authConsideration: {
       title: 'Authorization Touchpoint',
       description: 'Agents act on behalf of users, making autonomous decisions that affect real systems. What actions can an agent take? What data can it access? PlainID governs delegated authority—ensuring agents operate within the user\'s actual permissions.',
@@ -307,7 +307,7 @@ const elements = [
       { name: 'Semantic Kernel', url: 'https://github.com/microsoft/semantic-kernel' },
       { name: 'Haystack', url: 'https://haystack.deepset.ai/' }
     ],
-    relatedElements: ['Ag', 'Rg', 'Mc']
+    relatedElements: ['Ag', 'Rg', 'Pt']
   },
   {
     symbol: 'Rt',
@@ -385,7 +385,7 @@ const elements = [
       { name: 'AutoGen', url: 'https://microsoft.github.io/autogen/' },
       { name: 'LangGraph', url: 'https://langchain-ai.github.io/langgraph/' }
     ],
-    relatedElements: ['Ag', 'Mc', 'Fw']
+    relatedElements: ['Ag', 'Pt', 'Fw']
   },
   {
     symbol: 'Sy',
@@ -413,32 +413,33 @@ const elements = [
     relatedElements: ['Ft', 'Em']
   },
   {
-    symbol: 'Mc',
-    name: 'MCP',
-    fullName: 'Model Context Protocol',
+    symbol: 'Pt',
+    name: 'Protocols',
+    fullName: 'AI Agent Protocols',
     category: 'orchestration',
     row: 'emerging',
     col: 3,
     authRelevant: true,
     simple: {
-      summary: 'A universal standard for connecting AI to tools',
-      description: 'MCP is an open protocol that standardizes how AI models connect to external tools, data sources, and services. Think of it as USB for AI—a common interface that works across different systems.',
-      whyItMatters: 'MCP eliminates custom integrations. Build once, connect everywhere.'
+      summary: 'Standards for connecting AI to tools and other agents',
+      description: 'AI protocols standardize how models connect to external tools, data sources, and other agents. MCP (Model Context Protocol) handles tool and data access, while A2A (Agent2Agent) enables agent-to-agent collaboration. Think of them as USB and networking standards for AI systems.',
+      whyItMatters: 'Without protocols, every integration is custom. Standards enable interoperability, reduce vendor lock-in, and let AI systems work together across platforms.'
     },
     technical: {
-      summary: 'Open protocol standardizing AI-to-tool communication',
-      description: 'MCP defines a JSON-RPC interface for AI clients to discover and invoke tools exposed by MCP servers. Servers declare capabilities (tools, resources, prompts) that clients can query and execute. The protocol supports OAuth 2.1 authentication, but authorization logic must be implemented at the application layer.',
-      concepts: ['JSON-RPC', 'Tool discovery', 'Resource endpoints', 'OAuth 2.1', 'Server capabilities', 'Client-server architecture']
+      summary: 'Open standards for AI-to-tool and agent-to-agent communication',
+      description: 'MCP defines a JSON-RPC interface for AI clients to discover and invoke tools via MCP servers. A2A enables agent-to-agent discovery, negotiation, and task delegation across frameworks and vendors. Emerging protocols like AP2 (Agent Payments Protocol) extend this to financial transactions. All are built on HTTP/JSON-RPC with enterprise authentication support.',
+      concepts: ['MCP servers', 'A2A agent cards', 'Tool discovery', 'JSON-RPC', 'OAuth 2.1', 'Agent interoperability']
     },
     resources: [
       { name: 'MCP Specification', url: 'https://modelcontextprotocol.io/' },
+      { name: 'A2A Protocol', url: 'https://github.com/a2aproject/A2A' },
       { name: 'Anthropic MCP Docs', url: 'https://docs.anthropic.com/en/docs/agents-and-tools/mcp' },
-      { name: 'MCP Servers Registry', url: 'https://github.com/modelcontextprotocol/servers' }
+      { name: 'Google A2A Announcement', url: 'https://developers.googleblog.com/en/a2a-a-new-era-of-agent-interoperability/' }
     ],
     relatedElements: ['Fc', 'Ag', 'Fw', 'Ma'],
     authConsideration: {
       title: 'Authorization Touchpoint',
-      description: 'MCP standardizes tool connections but lacks built-in fine-grained authorization. Which tools should a user see? What actions can they perform? PlainID adds policy-based controls to the MCP flow—filtering tool lists and authorizing invocations based on identity.',
+      description: 'Protocols standardize connections but lack built-in fine-grained authorization. Which tools should a user see? Which agents can they invoke? PlainID adds policy-based controls to protocol flows—filtering tool lists and authorizing invocations based on identity.',
       link: 'https://plainid.com'
     }
   },
@@ -1100,7 +1101,7 @@ export default function App() {
             Secure Your AI Systems
           </h3>
           <p className={`mb-4 text-sm sm:text-base ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
-            Learn how PlainID provides policy-based access control across RAG, Agents, MCP, and more.
+            Learn how PlainID provides policy-based access control across RAG, Agents, Protocols, and more.
           </p>
           <a
             href="https://plainid.com"
