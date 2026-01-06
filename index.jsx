@@ -444,7 +444,7 @@ const elements = [
   },
   {
     symbol: 'In',
-    name: 'Interpret.',
+    name: 'Interpret',
     fullName: 'Interpretability',
     category: 'validation',
     row: 'emerging',
