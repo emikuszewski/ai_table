@@ -1034,19 +1034,6 @@ export default function App() {
         <div className={`grid gap-6 lg:gap-8 ${selectedElement ? 'lg:grid-cols-2' : ''}`}>
           {/* Table */}
           <div ref={tableRef} className="overflow-x-auto">
-            {/* Column Headers */}
-            <div className="flex items-center gap-2 sm:gap-3 mb-2 min-w-[400px]">
-              <div className="w-16 sm:w-20 md:w-24" /> {/* Spacer for row labels */}
-              <div className="flex-1 grid grid-cols-5 gap-2 sm:gap-3">
-                {['Reactive', 'Retrieval', 'Orch.', 'Valid.', 'Models'].map((header, i) => (
-                  <div key={header} className={`text-center text-[10px] sm:text-xs uppercase tracking-wider ${isDark ? 'text-gray-600' : 'text-gray-400'}`}>
-                    <span className="hidden md:inline">{['Reactive', 'Retrieval', 'Orchestration', 'Validation', 'Models'][i]}</span>
-                    <span className="md:hidden">{header}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
             {/* Grid Rows */}
             <div className="space-y-2 sm:space-y-3 min-w-[400px]">
               {grid.map(({ row, elements: rowElements }) => (
