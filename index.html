@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- Primary Meta Tags -->
+  <title>AI Periodic Table | The Building Blocks of Modern AI</title>
+  <meta name="title" content="AI Periodic Table | The Building Blocks of Modern AI" />
+  <meta name="description" content="Navigate the elements of AI systems - from Prompts and Embeddings to RAG, Agents, and MCP. An interactive visual guide to understanding modern AI architecture." />
+  <meta name="keywords" content="AI, artificial intelligence, LLM, RAG, agents, embeddings, MCP, machine learning, AI architecture, PlainID" />
+  <meta name="author" content="PlainID" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ai-elements.se-plainid.com/" />
+  <meta property="og:title" content="AI Periodic Table | The Building Blocks of Modern AI" />
+  <meta property="og:description" content="Navigate the elements of AI systems - from Prompts and Embeddings to RAG, Agents, and MCP. An interactive visual guide to understanding modern AI architecture." />
+  <meta property="og:image" content="https://ai-elements.se-plainid.com/og-image.png" />
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://ai-elements.se-plainid.com/" />
+  <meta property="twitter:title" content="AI Periodic Table | The Building Blocks of Modern AI" />
+  <meta property="twitter:description" content="Navigate the elements of AI systems - from Prompts and Embeddings to RAG, Agents, and MCP. An interactive visual guide to understanding modern AI architecture." />
+  <meta property="twitter:image" content="https://ai-elements.se-plainid.com/og-image.png" />
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%2322d3ee'/><stop offset='100%25' stop-color='%23a855f7'/></linearGradient></defs><rect width='32' height='32' rx='6' fill='url(%23g)'/><text x='16' y='22' font-family='system-ui' font-size='14' font-weight='bold' fill='white' text-anchor='middle'>AI</text></svg>" />
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- React -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  
+  <style>
+    * {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+    
+    /* Smooth scrolling */
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    /* Custom scrollbar for dark mode */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: #4b5563;
+      border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: #6b7280;
+    }
+    
+    /* Prevent FOUC */
+    body {
+      opacity: 0;
+      transition: opacity 0.2s ease-in-out;
+    }
+    
+    body.loaded {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  
+  <script type="text/babel" data-type="module">
+    // ============================================================================
+    // AI PERIODIC TABLE - Complete Single-File Application
+    // Attribution: Based on original work by IBM (https://www.youtube.com/@IBMTechnology)
+    // Enhanced by PlainID
+    // ============================================================================
+
+    const { useState, useEffect, useRef } = React;
+
+    // Element Data - All 17 elements with Simple and Technical content
+    const elements = [
+      // Row 1 - Primitives
+      {
+        symbol: 'Pr',
+        name: 'Prompts',
+        fullName: 'Prompt Engineering',
+        category: 'reactive',
+        row: 'primitives',
+        col: 1,
+        authRelevant: false,
+        simple: {
+          summary: 'The instructions that guide AI behavior',
+          description: 'Prompts are how humans communicate with AI systems. They can be simple questions, detailed instructions, or complex templates that shape how AI responds. Think of them as the steering wheel for AI.',
+          whyItMatters: 'Better prompts lead to dramatically better AI outputs—no code changes required.'
+        },
+        technical: {
+          summary: 'The instructions that guide AI behavior',
+          description: 'Prompts are the primary interface for LLM interaction, ranging from zero-shot queries to sophisticated multi-turn conversations with system prompts, few-shot examples, and chain-of-thought reasoning patterns. Prompt engineering optimizes these inputs for specific tasks, personas, or output formats.',
+          concepts: ['System prompts', 'Few-shot learning', 'Chain-of-thought', 'Prompt templates', 'Token optimization', 'Context window management']
+        },
+        resources: [
+          { name: 'OpenAI Prompt Engineering Guide', url: 'https://platform.openai.com/docs/guides/prompt-engineering' },
+          { name: 'Anthropic Prompt Library', url: 'https://docs.anthropic.com/en/prompt-library/library' },
+          { name: 'Learn Prompting', url: 'https://learnprompting.org/' }
+        ],
+        relatedElements: ['Lg', 'Fc', 'Ag']
+      },
+      {
+        symbol: 'Em',
+        name: 'Embeddings',
+        fullName: 'Vector Embeddings',
+        category: 'retrieval',
+        row: 'primitives',
+        col: 2,
+        authRelevant: false,
+        simple: {
+          summary: 'Converting text into numbers that capture meaning',
+          description: 'Embeddings transform words, sentences, or documents into lists of numbers (vectors) that represent their meaning. Similar concepts end up with similar numbers, enabling AI to understand relationships.',
+          whyItMatters: 'Embeddings power search, recommendations, and help AI find relevant information.'
+        },
+        technical: {
+          summary: 'Dense vector representations of semantic meaning',
+          description: 'Embeddings are high-dimensional vector representations (typically 384-3072 dimensions) generated by transformer models that encode semantic meaning into geometric space. Cosine similarity or dot products between vectors measure semantic relatedness, enabling efficient similarity search and clustering.',
+          concepts: ['Cosine similarity', 'Dimensionality', 'Sentence transformers', 'Bi-encoders', 'Cross-encoders', 'Embedding models']
+        },
+        resources: [
+          { name: 'OpenAI Embeddings', url: 'https://platform.openai.com/docs/guides/embeddings' },
+          { name: 'Sentence Transformers', url: 'https://www.sbert.net/' },
+          { name: 'Hugging Face MTEB', url: 'https://huggingface.co/spaces/mteb/leaderboard' }
+        ],
+        relatedElements: ['Vx', 'Rg']
+      },
+      {
+        symbol: 'Lg',
+        name: 'LLM',
+        fullName: 'Large Language Model',
+        category: 'models',
+        row: 'primitives',
+        col: 5,
+        authRelevant: false,
+        simple: {
+          summary: 'The AI engines that understand and generate text',
+          description: 'Large Language Models are the core AI systems trained on vast amounts of text. They can understand context, answer questions, write content, and reason through problems. GPT, Claude, and Llama are examples.',
+          whyItMatters: 'LLMs are the foundation of modern AI applications—choosing the right one affects cost, speed, and quality.'
+        },
+        technical: {
+          summary: 'Transformer-based neural networks for language understanding and generation',
+          description: 'LLMs are autoregressive transformer models with billions of parameters, trained on internet-scale text corpora using next-token prediction. They exhibit emergent capabilities including in-context learning, instruction following, and reasoning. Key architectural choices include attention mechanisms, context window size, and training objectives.',
+          concepts: ['Transformer architecture', 'Attention mechanisms', 'Context windows', 'Temperature', 'Top-p sampling', 'Token prediction']
+        },
+        resources: [
+          { name: 'Anthropic Claude', url: 'https://www.anthropic.com/claude' },
+          { name: 'OpenAI GPT-4', url: 'https://openai.com/gpt-4' },
+          { name: 'Meta Llama', url: 'https://llama.meta.com/' }
+        ],
+        relatedElements: ['Pr', 'Mm', 'Th', 'Sm']
+      },
+
+      // Row 2 - Compositions
+      {
+        symbol: 'Fc',
+        name: 'Function Call',
+        fullName: 'Function Calling / Tool Use',
+        category: 'reactive',
+        row: 'compositions',
+        col: 1,
+        authRelevant: true,
+        simple: {
+          summary: 'Enabling AI to take actions in the real world',
+          description: 'Function calling lets AI systems interact with external tools, APIs, and databases. Instead of just generating text, AI can book appointments, query databases, send emails, or control software.',
+          whyItMatters: 'This is how AI becomes useful beyond conversation—it can actually do things.'
+        },
+        technical: {
+          summary: 'Structured output generation for API and tool integration',
+          description: 'Function calling enables LLMs to generate structured JSON outputs that conform to predefined schemas, triggering external API calls or tool executions. The model selects appropriate functions, extracts parameters from context, and handles multi-step tool chains with error recovery.',
+          concepts: ['JSON schemas', 'Tool selection', 'Parameter extraction', 'Parallel function calls', 'Error handling', 'Tool chains']
+        },
+        resources: [
+          { name: 'OpenAI Function Calling', url: 'https://platform.openai.com/docs/guides/function-calling' },
+          { name: 'Anthropic Tool Use', url: 'https://docs.anthropic.com/en/docs/build-with-claude/tool-use' },
+          { name: 'LangChain Tools', url: 'https://python.langchain.com/docs/modules/tools/' }
+        ],
+        relatedElements: ['Ag', 'Mc', 'Fw'],
+        authConsideration: {
+          title: 'Authorization Touchpoint',
+          description: 'Function calls represent real-world actions with security implications. Which functions can a user invoke? What data can they access or modify? Policy-based controls ensure AI only executes authorized operations.',
+          link: 'https://plainid.com'
+        }
+      },
+      {
+        symbol: 'Vx',
+        name: 'Vector',
+        fullName: 'Vector Database',
+        category: 'retrieval',
+        row: 'compositions',
+        col: 2,
+        authRelevant: false,
+        simple: {
+          summary: 'Databases designed for AI-powered search',
+          description: 'Vector databases store embeddings and enable lightning-fast similarity search across millions of items. They\'re the backbone of AI search, finding relevant documents, images, or products based on meaning, not just keywords.',
+          whyItMatters: 'Traditional databases can\'t search by meaning—vector databases make semantic search possible at scale.'
+        },
+        technical: {
+          summary: 'Specialized databases for high-dimensional vector similarity search',
+          description: 'Vector databases implement approximate nearest neighbor (ANN) algorithms like HNSW, IVF, or ScaNN to enable sub-linear search across millions of high-dimensional vectors. They support hybrid search combining dense vectors with sparse keyword matching, metadata filtering, and real-time index updates.',
+          concepts: ['ANN algorithms', 'HNSW indexing', 'Hybrid search', 'Metadata filtering', 'Sharding', 'Recall vs latency']
+        },
+        resources: [
+          { name: 'Pinecone', url: 'https://www.pinecone.io/' },
+          { name: 'Weaviate', url: 'https://weaviate.io/' },
+          { name: 'Chroma', url: 'https://www.trychroma.com/' },
+          { name: 'Milvus', url: 'https://milvus.io/' }
+        ],
+        relatedElements: ['Em', 'Rg']
+      },
+      {
+        symbol: 'Rg',
+        name: 'RAG',
+        fullName: 'Retrieval-Augmented Generation',
+        category: 'orchestration',
+        row: 'compositions',
+        col: 3,
+        authRelevant: true,
+        simple: {
+          summary: 'Giving AI access to your specific information',
+          description: 'RAG connects AI to your documents, databases, and knowledge bases. Instead of relying only on training data, AI retrieves relevant information before responding—grounding answers in your actual content.',
+          whyItMatters: 'RAG reduces hallucinations and lets AI answer questions about your proprietary data.'
+        },
+        technical: {
+          summary: 'Architecture pattern combining retrieval systems with generative models',
+          description: 'RAG pipelines chunk documents, generate embeddings, store them in vector databases, then retrieve relevant context at query time to augment LLM prompts. Advanced implementations include query rewriting, re-ranking, hybrid retrieval, and iterative refinement with source attribution.',
+          concepts: ['Document chunking', 'Query rewriting', 'Re-ranking', 'Hybrid retrieval', 'Context injection', 'Source attribution']
+        },
+        resources: [
+          { name: 'LangChain RAG', url: 'https://python.langchain.com/docs/tutorials/rag/' },
+          { name: 'LlamaIndex', url: 'https://www.llamaindex.ai/' },
+          { name: 'Anthropic RAG Guide', url: 'https://docs.anthropic.com/en/docs/build-with-claude/retrieval-augmented-generation' }
+        ],
+        relatedElements: ['Em', 'Vx', 'Gr'],
+        authConsideration: {
+          title: 'Authorization Touchpoint',
+          description: 'RAG systems retrieve documents that may contain sensitive data. The Retriever Filter ensures users only see documents they\'re authorized to access—enforcing permissions at the data layer before content reaches the LLM.',
+          link: 'https://plainid.com'
+        }
+      },
+      {
+        symbol: 'Gr',
+        name: 'Guardrails',
+        fullName: 'AI Guardrails & Safety',
+        category: 'validation',
+        row: 'compositions',
+        col: 4,
+        authRelevant: true,
+        simple: {
+          summary: 'Safety controls that keep AI within boundaries',
+          description: 'Guardrails are policies and controls that validate AI inputs and outputs. They block harmful requests, filter sensitive content, enforce business rules, and ensure AI behaves according to your organization\'s requirements.',
+          whyItMatters: 'Without guardrails, AI systems can leak data, produce harmful content, or take unauthorized actions.'
+        },
+        technical: {
+          summary: 'Policy enforcement layer for AI input validation and output filtering',
+          description: 'Guardrails implement pre-query classification (blocking unauthorized topics), post-query filtering (content moderation, PII detection), and response transformation (anonymization, redaction). They integrate with policy engines for dynamic, context-aware enforcement based on user identity and entitlements.',
+          concepts: ['Input validation', 'Output filtering', 'Content moderation', 'PII detection', 'Policy enforcement', 'Anonymization']
+        },
+        resources: [
+          { name: 'Guardrails AI', url: 'https://www.guardrailsai.com/' },
+          { name: 'NeMo Guardrails', url: 'https://github.com/NVIDIA/NeMo-Guardrails' },
+          { name: 'PlainID LangChain Authorizer', url: 'https://docs.plainid.io/docs/langchain-authorizer' }
+        ],
+        relatedElements: ['Rg', 'Ag', 'Rt'],
+        authConsideration: {
+          title: 'Core Authorization Layer',
+          description: 'Guardrails are the primary enforcement point for AI authorization. The Categorizer validates if users can ask certain questions. The Anonymizer masks sensitive data in responses based on user privileges. This is where policy meets AI.',
+          link: 'https://plainid.com'
+        }
+      },
+      {
+        symbol: 'Mm',
+        name: 'Multimodal',
+        fullName: 'Multimodal AI',
+        category: 'models',
+        row: 'compositions',
+        col: 5,
+        authRelevant: false,
+        simple: {
+          summary: 'AI that can see, hear, and read',
+          description: 'Multimodal AI processes multiple types of input—text, images, audio, and video. This enables richer interactions like describing images, transcribing speech, or generating visuals from text descriptions.',
+          whyItMatters: 'Real-world problems rarely involve just text. Multimodal AI handles the complexity of human communication.'
+        },
+        technical: {
+          summary: 'Models that process and generate across multiple data modalities',
+          description: 'Multimodal architectures use shared embedding spaces or cross-attention mechanisms to align representations across modalities. Vision-language models encode images via ViT or similar architectures, projecting them into LLM embedding space. Audio models use spectrogram encoders or neural codecs for speech understanding and synthesis.',
+          concepts: ['Vision transformers', 'Cross-modal attention', 'CLIP embeddings', 'Audio codecs', 'Image generation', 'Speech synthesis']
+        },
+        resources: [
+          { name: 'GPT-4 Vision', url: 'https://platform.openai.com/docs/guides/vision' },
+          { name: 'Claude Vision', url: 'https://docs.anthropic.com/en/docs/build-with-claude/vision' },
+          { name: 'Google Gemini', url: 'https://deepmind.google/technologies/gemini/' }
+        ],
+        relatedElements: ['Lg', 'Em']
+      },
+
+      // Row 3 - Deployment
+      {
+        symbol: 'Ag',
+        name: 'Agent',
+        fullName: 'AI Agents',
+        category: 'reactive',
+        row: 'deployment',
+        col: 1,
+        authRelevant: true,
+        simple: {
+          summary: 'AI that can plan and execute multi-step tasks',
+          description: 'AI agents combine reasoning with action. They can break down complex goals, make decisions, use tools, and adapt their approach based on results. They work autonomously toward objectives rather than just responding to single prompts.',
+          whyItMatters: 'Agents unlock automation of complex workflows—from research to customer service to coding.'
+        },
+        technical: {
+          summary: 'Autonomous systems combining LLM reasoning with tool execution',
+          description: 'AI agents implement cognitive architectures with planning loops (ReAct, Plan-and-Execute), memory systems (short-term context, long-term retrieval), and tool integration. They decompose goals into sub-tasks, select appropriate actions, observe outcomes, and iteratively refine their approach until task completion.',
+          concepts: ['ReAct pattern', 'Planning loops', 'Memory systems', 'Tool selection', 'Goal decomposition', 'Self-correction']
+        },
+        resources: [
+          { name: 'LangGraph', url: 'https://langchain-ai.github.io/langgraph/' },
+          { name: 'AutoGPT', url: 'https://github.com/Significant-Gravitas/AutoGPT' },
+          { name: 'CrewAI', url: 'https://www.crewai.com/' }
+        ],
+        relatedElements: ['Fc', 'Mc', 'Ma', 'Gr'],
+        authConsideration: {
+          title: 'Authorization Touchpoint',
+          description: 'Agents act on behalf of users, making autonomous decisions that affect real systems. What actions can an agent take? What data can it access? PlainID governs delegated authority—ensuring agents operate within the user\'s actual permissions.',
+          link: 'https://plainid.com'
+        }
+      },
+      {
+        symbol: 'Ft',
+        name: 'Finetune',
+        fullName: 'Model Fine-tuning',
+        category: 'retrieval',
+        row: 'deployment',
+        col: 2,
+        authRelevant: false,
+        simple: {
+          summary: 'Customizing AI models for specific tasks',
+          description: 'Fine-tuning adapts a general-purpose AI model to excel at specific tasks or domains. By training on curated examples, the model learns your terminology, style, or specialized knowledge without starting from scratch.',
+          whyItMatters: 'Fine-tuning can dramatically improve performance on specific tasks while reducing costs and latency.'
+        },
+        technical: {
+          summary: 'Adapting pre-trained models through continued training on task-specific data',
+          description: 'Fine-tuning modifies model weights using supervised learning on curated datasets. Parameter-efficient methods like LoRA, QLoRA, and adapters reduce compute requirements by training only a subset of parameters. Evaluation requires careful metrics selection, holdout sets, and monitoring for catastrophic forgetting.',
+          concepts: ['LoRA', 'QLoRA', 'PEFT', 'Supervised fine-tuning', 'Instruction tuning', 'Catastrophic forgetting']
+        },
+        resources: [
+          { name: 'OpenAI Fine-tuning', url: 'https://platform.openai.com/docs/guides/fine-tuning' },
+          { name: 'Hugging Face PEFT', url: 'https://huggingface.co/docs/peft' },
+          { name: 'Axolotl', url: 'https://github.com/OpenAccess-AI-Collective/axolotl' }
+        ],
+        relatedElements: ['Lg', 'Sm']
+      },
+      {
+        symbol: 'Fw',
+        name: 'Framework',
+        fullName: 'AI Development Frameworks',
+        category: 'orchestration',
+        row: 'deployment',
+        col: 3,
+        authRelevant: false,
+        simple: {
+          summary: 'Tools for building AI applications faster',
+          description: 'AI frameworks provide pre-built components and patterns for common tasks—connecting to LLMs, building RAG pipelines, creating agents. They reduce boilerplate code and help developers ship AI applications faster.',
+          whyItMatters: 'Frameworks accelerate development and encode best practices, but choosing the right one affects long-term maintainability.'
+        },
+        technical: {
+          summary: 'Libraries and platforms for orchestrating AI application components',
+          description: 'AI frameworks provide abstractions for LLM interaction, prompt management, chain composition, memory systems, and tool integration. They handle streaming, retries, tracing, and evaluation. Key architectural patterns include chains, graphs, and agent loops with varying levels of control flow abstraction.',
+          concepts: ['Chain composition', 'Agent loops', 'Prompt templates', 'Output parsers', 'Callbacks', 'Tracing']
+        },
+        resources: [
+          { name: 'LangChain', url: 'https://www.langchain.com/' },
+          { name: 'LlamaIndex', url: 'https://www.llamaindex.ai/' },
+          { name: 'Semantic Kernel', url: 'https://github.com/microsoft/semantic-kernel' },
+          { name: 'Haystack', url: 'https://haystack.deepset.ai/' }
+        ],
+        relatedElements: ['Ag', 'Rg', 'Mc']
+      },
+      {
+        symbol: 'Rt',
+        name: 'Red-team',
+        fullName: 'AI Red Teaming',
+        category: 'validation',
+        row: 'deployment',
+        col: 4,
+        authRelevant: false,
+        simple: {
+          summary: 'Testing AI systems for vulnerabilities',
+          description: 'Red teaming probes AI systems for weaknesses—finding ways to bypass safety measures, extract sensitive information, or produce harmful outputs. It\'s ethical hacking for AI, identifying problems before attackers do.',
+          whyItMatters: 'Every AI system has vulnerabilities. Red teaming finds them before your users or adversaries do.'
+        },
+        technical: {
+          summary: 'Adversarial testing to identify AI system vulnerabilities',
+          description: 'Red teaming encompasses prompt injection attacks, jailbreaking attempts, data extraction probes, and bias audits. Techniques include gradient-based attacks, evolutionary prompt optimization, and multi-turn manipulation. Results inform guardrail design, training improvements, and deployment constraints.',
+          concepts: ['Prompt injection', 'Jailbreaking', 'Data extraction', 'Bias auditing', 'Adversarial prompts', 'Safety benchmarks']
+        },
+        resources: [
+          { name: 'OWASP LLM Top 10', url: 'https://owasp.org/www-project-top-10-for-large-language-model-applications/' },
+          { name: 'Garak', url: 'https://github.com/leondz/garak' },
+          { name: 'Anthropic RSP', url: 'https://www.anthropic.com/news/anthropics-responsible-scaling-policy' }
+        ],
+        relatedElements: ['Gr', 'In']
+      },
+      {
+        symbol: 'Sm',
+        name: 'Small',
+        fullName: 'Small Language Models',
+        category: 'models',
+        row: 'deployment',
+        col: 5,
+        authRelevant: false,
+        simple: {
+          summary: 'Compact AI models for speed and efficiency',
+          description: 'Small language models trade some capability for dramatically faster inference, lower costs, and the ability to run on-device. For focused tasks, they often match larger models at a fraction of the resources.',
+          whyItMatters: 'Not every task needs GPT-4. Small models enable AI at the edge, in real-time, and at scale.'
+        },
+        technical: {
+          summary: 'Efficient models optimized for inference speed and resource constraints',
+          description: 'SLMs (typically 1-13B parameters) use distillation, quantization (INT8, INT4), and architectural optimizations to achieve high performance on constrained hardware. They enable on-device inference, reduced latency, and cost-effective scaling for specific task domains where full LLM capabilities aren\'t required.',
+          concepts: ['Knowledge distillation', 'Quantization', 'Pruning', 'Edge deployment', 'Speculative decoding', 'Task-specific optimization']
+        },
+        resources: [
+          { name: 'Microsoft Phi', url: 'https://azure.microsoft.com/en-us/products/phi' },
+          { name: 'Google Gemma', url: 'https://ai.google.dev/gemma' },
+          { name: 'Mistral', url: 'https://mistral.ai/' },
+          { name: 'Ollama', url: 'https://ollama.ai/' }
+        ],
+        relatedElements: ['Lg', 'Ft']
+      },
+
+      // Row 4 - Emerging
+      {
+        symbol: 'Ma',
+        name: 'Multi-agent',
+        fullName: 'Multi-Agent Systems',
+        category: 'reactive',
+        row: 'emerging',
+        col: 1,
+        authRelevant: false,
+        simple: {
+          summary: 'Multiple AI agents working together',
+          description: 'Multi-agent systems coordinate multiple AI agents that collaborate, debate, or specialize to solve complex problems. Like a team of experts, different agents handle different aspects of a task.',
+          whyItMatters: 'Complex problems often exceed what one agent can handle. Multi-agent systems enable sophisticated, scalable automation.'
+        },
+        technical: {
+          summary: 'Architectures coordinating multiple specialized agents',
+          description: 'Multi-agent systems implement communication protocols, role assignment, consensus mechanisms, and conflict resolution between autonomous agents. Patterns include hierarchical delegation, peer collaboration, adversarial debate, and swarm intelligence. Challenges include coordination overhead, attribution, and emergent behaviors.',
+          concepts: ['Agent communication', 'Role specialization', 'Consensus mechanisms', 'Hierarchical delegation', 'Swarm patterns', 'Emergent behavior']
+        },
+        resources: [
+          { name: 'CrewAI', url: 'https://www.crewai.com/' },
+          { name: 'AutoGen', url: 'https://microsoft.github.io/autogen/' },
+          { name: 'LangGraph', url: 'https://langchain-ai.github.io/langgraph/' }
+        ],
+        relatedElements: ['Ag', 'Mc', 'Fw']
+      },
+      {
+        symbol: 'Sy',
+        name: 'Synthetic',
+        fullName: 'Synthetic Data Generation',
+        category: 'retrieval',
+        row: 'emerging',
+        col: 2,
+        authRelevant: false,
+        simple: {
+          summary: 'Using AI to create training data',
+          description: 'Synthetic data generation uses AI to create training examples, test cases, or augmented datasets. This helps when real data is scarce, sensitive, or expensive to collect.',
+          whyItMatters: 'Quality training data is the bottleneck for AI improvement. Synthetic data can accelerate development while protecting privacy.'
+        },
+        technical: {
+          summary: 'AI-generated data for training, evaluation, and augmentation',
+          description: 'Synthetic data pipelines use LLMs to generate diverse training examples, create evaluation benchmarks, augment existing datasets, and produce privacy-safe alternatives to sensitive data. Quality control requires filtering, deduplication, and validation against ground truth or human preferences.',
+          concepts: ['Data augmentation', 'Self-instruct', 'Constitutional AI', 'Quality filtering', 'Diversity metrics', 'Privacy preservation']
+        },
+        resources: [
+          { name: 'Argilla', url: 'https://argilla.io/' },
+          { name: 'Gretel', url: 'https://gretel.ai/' },
+          { name: 'Mostly AI', url: 'https://mostly.ai/' }
+        ],
+        relatedElements: ['Ft', 'Em']
+      },
+      {
+        symbol: 'Mc',
+        name: 'MCP',
+        fullName: 'Model Context Protocol',
+        category: 'orchestration',
+        row: 'emerging',
+        col: 3,
+        authRelevant: true,
+        simple: {
+          summary: 'A universal standard for connecting AI to tools',
+          description: 'MCP is an open protocol that standardizes how AI models connect to external tools, data sources, and services. Think of it as USB for AI—a common interface that works across different systems.',
+          whyItMatters: 'MCP eliminates custom integrations. Build once, connect everywhere.'
+        },
+        technical: {
+          summary: 'Open protocol standardizing AI-to-tool communication',
+          description: 'MCP defines a JSON-RPC interface for AI clients to discover and invoke tools exposed by MCP servers. Servers declare capabilities (tools, resources, prompts) that clients can query and execute. The protocol supports OAuth 2.1 authentication, but authorization logic must be implemented at the application layer.',
+          concepts: ['JSON-RPC', 'Tool discovery', 'Resource endpoints', 'OAuth 2.1', 'Server capabilities', 'Client-server architecture']
+        },
+        resources: [
+          { name: 'MCP Specification', url: 'https://modelcontextprotocol.io/' },
+          { name: 'Anthropic MCP Docs', url: 'https://docs.anthropic.com/en/docs/agents-and-tools/mcp' },
+          { name: 'MCP Servers Registry', url: 'https://github.com/modelcontextprotocol/servers' }
+        ],
+        relatedElements: ['Fc', 'Ag', 'Fw', 'Ma'],
+        authConsideration: {
+          title: 'Authorization Touchpoint',
+          description: 'MCP standardizes tool connections but lacks built-in fine-grained authorization. Which tools should a user see? What actions can they perform? PlainID adds policy-based controls to the MCP flow—filtering tool lists and authorizing invocations based on identity.',
+          link: 'https://plainid.com'
+        }
+      },
+      {
+        symbol: 'In',
+        name: 'Interpret.',
+        fullName: 'Interpretability',
+        category: 'validation',
+        row: 'emerging',
+        col: 4,
+        authRelevant: false,
+        simple: {
+          summary: 'Understanding how AI makes decisions',
+          description: 'Interpretability research aims to open the black box of AI—understanding which inputs influenced outputs, how models represent concepts internally, and why they behave in certain ways.',
+          whyItMatters: 'Trust requires understanding. Interpretability enables debugging, auditing, and building confidence in AI systems.'
+        },
+        technical: {
+          summary: 'Methods for understanding AI model behavior and representations',
+          description: 'Interpretability encompasses attention visualization, feature attribution (saliency maps, integrated gradients), probing classifiers, mechanistic interpretability (circuit analysis), and concept bottleneck models. Research aims to identify learned representations, understand failure modes, and verify alignment with intended behavior.',
+          concepts: ['Attention patterns', 'Feature attribution', 'Probing classifiers', 'Circuit analysis', 'Concept extraction', 'Mechanistic interpretability']
+        },
+        resources: [
+          { name: 'Anthropic Interpretability', url: 'https://www.anthropic.com/research#702702' },
+          { name: 'TransformerLens', url: 'https://github.com/TransformerLensOrg/TransformerLens' },
+          { name: 'Neel Nanda\'s Work', url: 'https://www.neelnanda.io/' }
+        ],
+        relatedElements: ['Rt', 'Th']
+      },
+      {
+        symbol: 'Th',
+        name: 'Thinking',
+        fullName: 'Reasoning Models',
+        category: 'models',
+        row: 'emerging',
+        col: 5,
+        authRelevant: false,
+        simple: {
+          summary: 'AI models that show their reasoning',
+          description: 'Thinking models explicitly work through problems step-by-step, showing their reasoning process. This improves accuracy on complex tasks and makes it easier to verify AI\'s logic.',
+          whyItMatters: 'Explicit reasoning improves performance on hard problems and enables humans to catch mistakes.'
+        },
+        technical: {
+          summary: 'Models trained to externalize step-by-step reasoning',
+          description: 'Reasoning models use extended thinking traces, trained via process supervision or reinforcement learning to decompose complex problems. Techniques include chain-of-thought prompting, self-consistency (multiple reasoning paths), tree-of-thought search, and deliberative alignment. Trade-offs include increased latency and compute for improved accuracy.',
+          concepts: ['Chain-of-thought', 'Process supervision', 'Self-consistency', 'Tree-of-thought', 'Deliberative alignment', 'Reasoning traces']
+        },
+        resources: [
+          { name: 'OpenAI o1', url: 'https://openai.com/index/introducing-openai-o1-preview/' },
+          { name: 'Claude Extended Thinking', url: 'https://docs.anthropic.com/en/docs/build-with-claude/extended-thinking' },
+          { name: 'DeepSeek R1', url: 'https://www.deepseek.com/' }
+        ],
+        relatedElements: ['Lg', 'In']
+      }
+    ];
+
+    // Category styling configuration
+    const categoryConfig = {
+      reactive: {
+        label: 'Reactive',
+        dark: { border: 'border-cyan-500/50', hoverBorder: 'hover:border-cyan-400', hoverBg: 'hover:bg-cyan-500/10', text: 'text-cyan-400', solid: 'bg-cyan-500', glow: 'shadow-cyan-500/20' },
+        light: { border: 'border-cyan-600/50', hoverBorder: 'hover:border-cyan-500', hoverBg: 'hover:bg-cyan-500/10', text: 'text-cyan-600', solid: 'bg-cyan-500', glow: 'shadow-cyan-500/20' }
+      },
+      retrieval: {
+        label: 'Retrieval',
+        dark: { border: 'border-blue-500/50', hoverBorder: 'hover:border-blue-400', hoverBg: 'hover:bg-blue-500/10', text: 'text-blue-400', solid: 'bg-blue-500', glow: 'shadow-blue-500/20' },
+        light: { border: 'border-blue-600/50', hoverBorder: 'hover:border-blue-500', hoverBg: 'hover:bg-blue-500/10', text: 'text-blue-600', solid: 'bg-blue-500', glow: 'shadow-blue-500/20' }
+      },
+      orchestration: {
+        label: 'Orchestration',
+        dark: { border: 'border-violet-500/50', hoverBorder: 'hover:border-violet-400', hoverBg: 'hover:bg-violet-500/10', text: 'text-violet-400', solid: 'bg-violet-500', glow: 'shadow-violet-500/20' },
+        light: { border: 'border-violet-600/50', hoverBorder: 'hover:border-violet-500', hoverBg: 'hover:bg-violet-500/10', text: 'text-violet-600', solid: 'bg-violet-500', glow: 'shadow-violet-500/20' }
+      },
+      validation: {
+        label: 'Validation',
+        dark: { border: 'border-amber-500/50', hoverBorder: 'hover:border-amber-400', hoverBg: 'hover:bg-amber-500/10', text: 'text-amber-400', solid: 'bg-amber-500', glow: 'shadow-amber-500/20' },
+        light: { border: 'border-amber-600/50', hoverBorder: 'hover:border-amber-500', hoverBg: 'hover:bg-amber-500/10', text: 'text-amber-600', solid: 'bg-amber-500', glow: 'shadow-amber-500/20' }
+      },
+      models: {
+        label: 'Models',
+        dark: { border: 'border-purple-500/50', hoverBorder: 'hover:border-purple-400', hoverBg: 'hover:bg-purple-500/10', text: 'text-purple-400', solid: 'bg-purple-500', glow: 'shadow-purple-500/20' },
+        light: { border: 'border-purple-600/50', hoverBorder: 'hover:border-purple-500', hoverBg: 'hover:bg-purple-500/10', text: 'text-purple-600', solid: 'bg-purple-500', glow: 'shadow-purple-500/20' }
+      }
+    };
+
+    const rowLabels = {
+      primitives: 'Primitives',
+      compositions: 'Compositions',
+      deployment: 'Deployment',
+      emerging: 'Emerging'
+    };
+
+    // Pipeline overlay data
+    const pipelineSteps = [
+      { id: 'prompt', label: 'Prompt', x: 5, elements: ['Pr'] },
+      { id: 'retrieval', label: 'Data Retrieval', x: 28, elements: ['Em', 'Vx', 'Rg'] },
+      { id: 'llm', label: 'LLM', x: 55, elements: ['Lg', 'Mm', 'Sm', 'Th'] },
+      { id: 'response', label: 'Response', x: 82, elements: ['Gr'] }
+    ];
+
+    const pipelineControls = [
+      { id: 'input-output', label: 'Input/Output Guardrails', description: 'Block unauthorized questions • Mask sensitive data', color: 'amber', spans: [0, 3] },
+      { id: 'data', label: 'Data Control', description: 'Control access to documents and data', color: 'blue', spans: [1, 1] },
+      { id: 'tools', label: 'Tools Control', description: 'Enforce access to authorized tools', color: 'violet', spans: [2, 2] }
+    ];
+
+    // ============================================================================
+    // Components
+    // ============================================================================
+
+    // Theme Toggle Button
+    const ThemeToggle = ({ isDark, onToggle }) => (
+      <button
+        onClick={onToggle}
+        className={`p-2 rounded-lg transition-all duration-200 ${
+          isDark 
+            ? 'bg-gray-800 text-yellow-400 hover:bg-gray-700' 
+            : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
+        }`}
+        aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+      >
+        {isDark ? (
+          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clipRule="evenodd" />
+          </svg>
+        ) : (
+          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+          </svg>
+        )}
+      </button>
+    );
+
+    // Content Depth Toggle
+    const ContentToggle = ({ isSimple, onToggle, isDark }) => (
+      <div className={`flex items-center gap-2 p-1 rounded-lg ${isDark ? 'bg-gray-800' : 'bg-gray-200'}`}>
+        <button
+          onClick={() => onToggle(true)}
+          className={`px-3 py-1.5 text-sm font-medium rounded-md transition-all duration-200 ${
+            isSimple
+              ? isDark ? 'bg-gray-700 text-white' : 'bg-white text-gray-900 shadow-sm'
+              : isDark ? 'text-gray-400 hover:text-gray-300' : 'text-gray-500 hover:text-gray-700'
+          }`}
+        >
+          Simple
+        </button>
+        <button
+          onClick={() => onToggle(false)}
+          className={`px-3 py-1.5 text-sm font-medium rounded-md transition-all duration-200 ${
+            !isSimple
+              ? isDark ? 'bg-gray-700 text-white' : 'bg-white text-gray-900 shadow-sm'
+              : isDark ? 'text-gray-400 hover:text-gray-300' : 'text-gray-500 hover:text-gray-700'
+          }`}
+        >
+          Technical
+        </button>
+      </div>
+    );
+
+    // Element Card
+    const ElementCard = ({ element, onClick, isSelected, isDark, isPipelineActive, highlightedElements }) => {
+      const colors = categoryConfig[element.category][isDark ? 'dark' : 'light'];
+      const isHighlighted = highlightedElements?.includes(element.symbol);
+      const isDimmed = isPipelineActive && !isHighlighted;
+
+      return (
+        <button
+          onClick={() => onClick(element)}
+          className={`
+            relative aspect-square border-2 rounded-xl p-2 sm:p-3 flex flex-col justify-center items-center
+            cursor-pointer transition-all duration-300
+            ${colors.border} ${colors.hoverBorder} ${colors.hoverBg}
+            ${isSelected ? `ring-2 ${isDark ? 'ring-white/50' : 'ring-gray-900/50'} scale-105` : ''}
+            ${isDark ? 'bg-gray-900/50' : 'bg-white shadow-sm'}
+            ${isDimmed ? 'opacity-30' : ''}
+            ${isHighlighted ? `shadow-lg ${colors.glow}` : ''}
+            hover:scale-105
+          `}
+        >
+          <span className={`text-xl sm:text-2xl md:text-3xl font-bold ${colors.text}`}>
+            {element.symbol}
+          </span>
+          <span className={`text-[10px] sm:text-xs mt-1 text-center leading-tight ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+            {element.name}
+          </span>
+          {element.authRelevant && (
+            <div className="absolute top-1.5 right-1.5 sm:top-2 sm:right-2" title="Authorization touchpoint">
+              <div className="w-2 h-2 bg-amber-500 rounded-full animate-pulse" />
+            </div>
+          )}
+        </button>
+      );
+    };
+
+    // Empty Cell
+    const EmptyCell = () => <div className="aspect-square" />;
+
+    // Detail Panel
+    const DetailPanel = ({ element, onClose, isDark, isSimple }) => {
+      const colors = categoryConfig[element.category][isDark ? 'dark' : 'light'];
+      const content = isSimple ? element.simple : element.technical;
+
+      return (
+        <div className={`
+          rounded-2xl p-5 sm:p-6 md:p-8 transition-all duration-300 animate-fadeIn
+          ${isDark ? 'bg-gray-800/90 border border-gray-700' : 'bg-white shadow-xl border border-gray-200'}
+        `}>
+          {/* Header */}
+          <div className="flex items-start justify-between mb-5">
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className={`w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 ${colors.solid} rounded-xl flex items-center justify-center shadow-lg`}>
+                <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-white">{element.symbol}</span>
+              </div>
+              <div>
+                <h2 className={`text-xl sm:text-2xl md:text-3xl font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                  {element.name}
+                </h2>
+                <p className={`${colors.text} text-sm sm:text-base`}>
+                  {element.fullName}
+                </p>
+                <p className={`text-xs sm:text-sm capitalize ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
+                  {element.category} • {element.row}
+                </p>
+              </div>
+            </div>
+            <button
+              onClick={onClose}
+              className={`p-2 rounded-lg transition ${isDark ? 'hover:bg-gray-700 text-gray-400' : 'hover:bg-gray-100 text-gray-500'}`}
+            >
+              <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+
+          {/* Summary */}
+          <p className={`text-base sm:text-lg md:text-xl mb-4 font-medium ${isDark ? 'text-gray-200' : 'text-gray-700'}`}>
+            {content.summary}
+          </p>
+
+          {/* Description */}
+          <p className={`mb-5 leading-relaxed text-sm sm:text-base ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+            {content.description}
+          </p>
+
+          {/* Why It Matters (Simple) or Key Concepts (Technical) */}
+          {isSimple ? (
+            <div className={`mb-5 p-3 sm:p-4 rounded-xl ${isDark ? 'bg-gray-700/50' : 'bg-gray-50'}`}>
+              <h3 className={`text-xs sm:text-sm uppercase tracking-wider mb-2 ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
+                Why It Matters
+              </h3>
+              <p className={`text-sm sm:text-base ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
+                {content.whyItMatters}
+              </p>
+            </div>
+          ) : (
+            <div className="mb-5">
+              <h3 className={`text-xs sm:text-sm uppercase tracking-wider mb-2 sm:mb-3 ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
+                Key Concepts
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {content.concepts.map(concept => (
+                  <span
+                    key={concept}
+                    className={`px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm ${
+                      isDark ? 'bg-gray-700 text-gray-300' : 'bg-gray-100 text-gray-600'
+                    }`}
+                  >
+                    {concept}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Authorization Consideration */}
+          {element.authRelevant && element.authConsideration && (
+            <div className={`mb-5 rounded-xl p-3 sm:p-4 border-l-4 border-amber-500 ${isDark ? 'bg-amber-500/10' : 'bg-amber-50'}`}>
+              <div className="flex items-center gap-2 mb-2">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+                </svg>
+                <h3 className={`font-semibold text-sm sm:text-base ${isDark ? 'text-amber-400' : 'text-amber-700'}`}>
+                  {element.authConsideration.title}
+                </h3>
+              </div>
+              <p className={`text-xs sm:text-sm ${isDark ? 'text-amber-200/80' : 'text-amber-800'}`}>
+                {element.authConsideration.description}
+              </p>
+            </div>
+          )}
+
+          {/* Resources */}
+          <div className="mb-5">
+            <h3 className={`text-xs sm:text-sm uppercase tracking-wider mb-2 sm:mb-3 ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
+              Tools & Resources
+            </h3>
+            <div className="flex flex-wrap gap-2">
+              {element.resources.map(resource => (
+                <a
+                  key={resource.name}
+                  href={resource.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`inline-flex items-center gap-1 px-2 sm:px-3 py-1 rounded-lg text-xs sm:text-sm transition ${
+                    isDark
+                      ? 'bg-gray-700 text-cyan-400 hover:bg-gray-600'
+                      : 'bg-gray-100 text-cyan-600 hover:bg-gray-200'
+                  }`}
+                >
+                  {resource.name}
+                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Related Elements */}
+          <div>
+            <h3 className={`text-xs sm:text-sm uppercase tracking-wider mb-2 sm:mb-3 ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
+              Related Elements
+            </h3>
+            <div className="flex flex-wrap gap-2">
+              {element.relatedElements.map(symbol => {
+                const related = elements.find(e => e.symbol === symbol);
+                if (!related) return null;
+                const relatedColors = categoryConfig[related.category][isDark ? 'dark' : 'light'];
+                return (
+                  <span
+                    key={symbol}
+                    className={`px-2 sm:px-3 py-1 rounded-lg text-xs sm:text-sm font-medium border ${relatedColors.border} ${relatedColors.text}`}
+                  >
+                    {symbol} {related.name}
+                  </span>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+    // Pipeline Overlay
+    const PipelineOverlay = ({ isDark, onHighlight }) => {
+      const [activeControl, setActiveControl] = useState(null);
+
+      const handleControlClick = (control) => {
+        if (activeControl?.id === control.id) {
+          setActiveControl(null);
+          onHighlight([]);
+        } else {
+          setActiveControl(control);
+          const highlightedElements = pipelineSteps
+            .slice(control.spans[0], control.spans[0] + control.spans[1] + 1)
+            .flatMap(step => step.elements);
+          onHighlight(highlightedElements);
+        }
+      };
+
+      return (
+        <div className={`rounded-2xl p-4 sm:p-6 mb-6 ${isDark ? 'bg-gray-800/90 border border-gray-700' : 'bg-white shadow-lg border border-gray-200'}`}>
+          <h3 className={`text-base sm:text-lg font-semibold mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}>
+            AI Pipeline Flow
+          </h3>
+          
+          {/* Flow Diagram */}
+          <div className="relative mb-6">
+            <div className={`h-1 rounded-full ${isDark ? 'bg-gray-700' : 'bg-gray-200'}`} />
+            <div className="flex justify-between mt-3">
+              {pipelineSteps.map((step, i) => (
+                <div key={step.id} className="flex flex-col items-center" style={{ width: '22%' }}>
+                  <div className={`w-3 h-3 sm:w-4 sm:h-4 rounded-full -mt-5 sm:-mt-[22px] ${isDark ? 'bg-cyan-500' : 'bg-cyan-600'}`} />
+                  <span className={`text-[10px] sm:text-xs mt-2 text-center ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+                    {step.label}
+                  </span>
+                </div>
+              ))}
+            </div>
+            <div className="absolute right-0 top-0 -mt-1.5">
+              <svg className={`w-3 h-3 sm:w-4 sm:h-4 ${isDark ? 'text-gray-700' : 'text-gray-300'}`} viewBox="0 0 24 24" fill="currentColor">
+                <path d="M10 17l5-5-5-5v10z"/>
+              </svg>
+            </div>
+          </div>
+
+          {/* Control Layers */}
+          <div className="space-y-2">
+            {pipelineControls.map(control => {
+              const isActive = activeControl?.id === control.id;
+              const colorClasses = {
+                amber: isDark ? 'border-amber-500 bg-amber-500/10 text-amber-400' : 'border-amber-500 bg-amber-50 text-amber-700',
+                blue: isDark ? 'border-blue-500 bg-blue-500/10 text-blue-400' : 'border-blue-500 bg-blue-50 text-blue-700',
+                violet: isDark ? 'border-violet-500 bg-violet-500/10 text-violet-400' : 'border-violet-500 bg-violet-50 text-violet-700'
+              };
+              
+              return (
+                <button
+                  key={control.id}
+                  onClick={() => handleControlClick(control)}
+                  className={`w-full text-left p-3 rounded-lg border-l-4 transition-all ${colorClasses[control.color]} ${
+                    isActive ? 'ring-2 ring-offset-2 ' + (isDark ? 'ring-offset-gray-800' : 'ring-offset-white') + ' ring-' + control.color + '-500' : ''
+                  }`}
+                >
+                  <div className="font-medium text-sm">{control.label}</div>
+                  <div className={`text-xs ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>{control.description}</div>
+                </button>
+              );
+            })}
+          </div>
+
+          <p className={`text-xs mt-4 ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
+            Click a control layer to highlight related elements
+          </p>
+        </div>
+      );
+    };
+
+    // Share Panel
+    const SharePanel = ({ isDark }) => {
+      const [copied, setCopied] = useState(false);
+
+      const handleCopyLink = () => {
+        navigator.clipboard.writeText(window.location.href);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      };
+
+      const handleShare = (platform) => {
+        const url = encodeURIComponent(window.location.href);
+        const text = encodeURIComponent('Check out the AI Periodic Table - a visual guide to the building blocks of modern AI systems');
+        
+        const urls = {
+          twitter: `https://twitter.com/intent/tweet?url=${url}&text=${text}`,
+          linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${url}`,
+        };
+        
+        window.open(urls[platform], '_blank', 'width=600,height=400');
+      };
+
+      return (
+        <div className="flex items-center gap-2">
+          <button
+            onClick={handleCopyLink}
+            className={`p-2 rounded-lg transition ${isDark ? 'hover:bg-gray-800 text-gray-400' : 'hover:bg-gray-100 text-gray-500'}`}
+            title="Copy link"
+          >
+            {copied ? (
+              <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
+            ) : (
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+              </svg>
+            )}
+          </button>
+          <button
+            onClick={() => handleShare('twitter')}
+            className={`p-2 rounded-lg transition ${isDark ? 'hover:bg-gray-800 text-gray-400' : 'hover:bg-gray-100 text-gray-500'}`}
+            title="Share on X"
+          >
+            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+          </button>
+          <button
+            onClick={() => handleShare('linkedin')}
+            className={`p-2 rounded-lg transition ${isDark ? 'hover:bg-gray-800 text-gray-400' : 'hover:bg-gray-100 text-gray-500'}`}
+            title="Share on LinkedIn"
+          >
+            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+          </button>
+        </div>
+      );
+    };
+
+    // Legend Component
+    const Legend = ({ isDark }) => (
+      <div className="flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-6 mb-6 text-xs sm:text-sm">
+        {Object.entries(categoryConfig).map(([key, config]) => (
+          <div key={key} className="flex items-center gap-1.5 sm:gap-2">
+            <div className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded ${config[isDark ? 'dark' : 'light'].solid}`} />
+            <span className={isDark ? 'text-gray-400' : 'text-gray-500'}>{config.label}</span>
+          </div>
+        ))}
+        <div className="flex items-center gap-1.5 sm:gap-2">
+          <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-amber-500 animate-pulse" />
+          <span className={isDark ? 'text-gray-400' : 'text-gray-500'}>Auth touchpoint</span>
+        </div>
+      </div>
+    );
+
+    // ============================================================================
+    // Main App
+    // ============================================================================
+
+    function App() {
+      const [isDark, setIsDark] = useState(true);
+      const [isSimple, setIsSimple] = useState(true);
+      const [selectedElement, setSelectedElement] = useState(null);
+      const [showPipeline, setShowPipeline] = useState(false);
+      const [highlightedElements, setHighlightedElements] = useState([]);
+      const tableRef = useRef(null);
+
+      // Detect system preference on mount
+      useEffect(() => {
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        setIsDark(prefersDark);
+        document.body.classList.add('loaded');
+      }, []);
+
+      // Build grid structure
+      const rows = ['primitives', 'compositions', 'deployment', 'emerging'];
+      const grid = rows.map(row => {
+        const rowElements = [];
+        for (let col = 1; col <= 5; col++) {
+          const element = elements.find(e => e.row === row && e.col === col);
+          rowElements.push(element || null);
+        }
+        return { row, elements: rowElements };
+      });
+
+      const handleElementClick = (element) => {
+        setSelectedElement(selectedElement?.symbol === element.symbol ? null : element);
+      };
+
+      return (
+        <div className={`min-h-screen transition-colors duration-300 ${isDark ? 'bg-gray-950' : 'bg-gray-50'}`}>
+          {/* Header */}
+          <header className={`border-b sticky top-0 z-40 backdrop-blur-sm ${isDark ? 'border-gray-800 bg-gray-950/90' : 'border-gray-200 bg-gray-50/90'}`}>
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 py-3 sm:py-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <div className="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-br from-cyan-400 to-purple-500 rounded-lg" />
+                  <div>
+                    <span className={`font-semibold text-sm sm:text-base ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                      AI Periodic Table
+                    </span>
+                    <span className={`hidden sm:inline text-sm ml-2 ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
+                      by PlainID
+                    </span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <SharePanel isDark={isDark} />
+                  <ThemeToggle isDark={isDark} onToggle={() => setIsDark(!isDark)} />
+                </div>
+              </div>
+            </div>
+          </header>
+
+          <main className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 py-6 sm:py-8 md:py-12">
+            {/* Title Section */}
+            <div className="text-center mb-6 sm:mb-8 md:mb-10">
+              <h1 className={`text-2xl sm:text-3xl md:text-4xl font-light tracking-tight mb-2 sm:mb-3 ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                The Building Blocks of{' '}
+                <span className={`font-semibold ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`}>Modern AI</span>
+              </h1>
+              <p className={`text-sm sm:text-base md:text-lg ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+                Navigate the elements of AI systems. Click any element to explore.
+              </p>
+              <p className={`text-xs sm:text-sm mt-2 ${isDark ? 'text-gray-600' : 'text-gray-400'}`}>
+                Based on original work by{' '}
+                <a 
+                  href="https://www.youtube.com/@IBMTechnology" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className={`underline ${isDark ? 'hover:text-gray-400' : 'hover:text-gray-600'}`}
+                >
+                  IBM
+                </a>
+              </p>
+            </div>
+
+            {/* Controls Row */}
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
+              <ContentToggle isSimple={isSimple} onToggle={setIsSimple} isDark={isDark} />
+              <button
+                onClick={() => {
+                  setShowPipeline(!showPipeline);
+                  if (showPipeline) setHighlightedElements([]);
+                }}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                  showPipeline
+                    ? isDark ? 'bg-cyan-500 text-gray-900' : 'bg-cyan-600 text-white'
+                    : isDark ? 'bg-gray-800 text-gray-300 hover:bg-gray-700' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                }`}
+              >
+                {showPipeline ? 'Hide Pipeline' : 'View AI Pipeline'}
+              </button>
+            </div>
+
+            {/* Legend */}
+            <Legend isDark={isDark} />
+
+            {/* Pipeline Overlay */}
+            {showPipeline && (
+              <PipelineOverlay isDark={isDark} onHighlight={setHighlightedElements} />
+            )}
+
+            {/* Main Content */}
+            <div className={`grid gap-6 lg:gap-8 ${selectedElement ? 'lg:grid-cols-2' : ''}`}>
+              {/* Table */}
+              <div ref={tableRef} className="overflow-x-auto">
+                {/* Column Headers */}
+                <div className="flex items-center gap-2 sm:gap-3 mb-2 min-w-[400px]">
+                  <div className="w-16 sm:w-20 md:w-24" /> {/* Spacer for row labels */}
+                  <div className="flex-1 grid grid-cols-5 gap-2 sm:gap-3">
+                    {['Reactive', 'Retrieval', 'Orch.', 'Valid.', 'Models'].map((header, i) => (
+                      <div key={header} className={`text-center text-[10px] sm:text-xs uppercase tracking-wider ${isDark ? 'text-gray-600' : 'text-gray-400'}`}>
+                        <span className="hidden md:inline">{['Reactive', 'Retrieval', 'Orchestration', 'Validation', 'Models'][i]}</span>
+                        <span className="md:hidden">{header}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Grid Rows */}
+                <div className="space-y-2 sm:space-y-3 min-w-[400px]">
+                  {grid.map(({ row, elements: rowElements }) => (
+                    <div key={row} className="flex items-center gap-2 sm:gap-3">
+                      {/* Row Label */}
+                      <div className={`w-16 sm:w-20 md:w-24 text-right pr-2 ${isDark ? 'text-gray-600' : 'text-gray-400'}`}>
+                        <span className="text-[10px] sm:text-xs uppercase tracking-wider">{rowLabels[row]}</span>
+                      </div>
+
+                      {/* Elements */}
+                      <div className="flex-1 grid grid-cols-5 gap-2 sm:gap-3">
+                        {rowElements.map((element, i) => (
+                          element ? (
+                            <ElementCard
+                              key={element.symbol}
+                              element={element}
+                              onClick={handleElementClick}
+                              isSelected={selectedElement?.symbol === element.symbol}
+                              isDark={isDark}
+                              isPipelineActive={showPipeline && highlightedElements.length > 0}
+                              highlightedElements={highlightedElements}
+                            />
+                          ) : (
+                            <EmptyCell key={`empty-${row}-${i}`} />
+                          )
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Maturity Arrow */}
+                <div className={`flex items-center justify-center gap-2 mt-6 text-[10px] sm:text-xs uppercase tracking-wider ${isDark ? 'text-gray-600' : 'text-gray-400'}`}>
+                  <span>Foundational</span>
+                  <svg className="w-12 sm:w-16 h-4" viewBox="0 0 64 16">
+                    <path d="M0 8h56M56 8l-8-6M56 8l-8 6" stroke="currentColor" strokeWidth="1.5" fill="none" />
+                  </svg>
+                  <span>Emerging</span>
+                </div>
+              </div>
+
+              {/* Detail Panel */}
+              {selectedElement && (
+                <div className="lg:sticky lg:top-24 lg:self-start">
+                  <DetailPanel
+                    element={selectedElement}
+                    onClose={() => setSelectedElement(null)}
+                    isDark={isDark}
+                    isSimple={isSimple}
+                  />
+                </div>
+              )}
+            </div>
+
+            {/* Footer CTA */}
+            <div className={`mt-10 sm:mt-12 rounded-2xl p-5 sm:p-6 md:p-8 text-center ${
+              isDark 
+                ? 'bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700' 
+                : 'bg-gradient-to-br from-gray-100 to-white border border-gray-200'
+            }`}>
+              <h3 className={`text-lg sm:text-xl font-semibold mb-2 ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                Secure Your AI Systems
+              </h3>
+              <p className={`mb-4 text-sm sm:text-base ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+                Learn how PlainID provides policy-based access control across RAG, Agents, MCP, and more.
+              </p>
+              <a
+                href="https://plainid.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block bg-cyan-500 hover:bg-cyan-400 text-gray-900 font-medium px-5 sm:px-6 py-2.5 sm:py-3 rounded-lg transition text-sm sm:text-base"
+              >
+                Explore PlainID →
+              </a>
+            </div>
+
+            {/* Footer Attribution */}
+            <footer className={`mt-8 pt-6 border-t text-center text-xs sm:text-sm ${isDark ? 'border-gray-800 text-gray-600' : 'border-gray-200 text-gray-400'}`}>
+              <p>
+                Based on the AI Periodic Table by{' '}
+                <a 
+                  href="https://www.youtube.com/@IBMTechnology" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="underline hover:opacity-80"
+                >
+                  IBM Technology
+                </a>
+                {' '}• Enhanced by{' '}
+                <a 
+                  href="https://plainid.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="underline hover:opacity-80"
+                >
+                  PlainID
+                </a>
+              </p>
+            </footer>
+          </main>
+
+          {/* Global Styles */}
+          <style>{`
+            @keyframes fadeIn {
+              from { opacity: 0; transform: translateY(10px); }
+              to { opacity: 1; transform: translateY(0); }
+            }
+            .animate-fadeIn {
+              animation: fadeIn 0.3s ease-out;
+            }
+          `}</style>
+        </div>
+      );
+    }
+
+    // Render the app
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
